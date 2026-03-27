@@ -1,0 +1,3 @@
+# japanese
+
+Category content folder.

@@ -1,0 +1,12 @@
+
+> streaming-platform@1.0.0 dev:backend
+> npm run dev --workspace backend
+
+[1G[0K
+> backend@1.0.0 dev
+> tsx watch src/server.ts
+
+[1G[0KInvalid environment configuration {
+  JWT_ACCESS_SECRET: [ [32m'Required'[39m ],
+  JWT_REFRESH_SECRET: [ [32m'Required'[39m ]
+}

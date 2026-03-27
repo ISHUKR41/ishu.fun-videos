@@ -1,0 +1,3 @@
+# african
+
+Category content folder.

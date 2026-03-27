@@ -1,0 +1,3 @@
+# american
+
+Category content folder.

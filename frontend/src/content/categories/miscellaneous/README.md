@@ -1,0 +1,3 @@
+# miscellaneous
+
+Category content folder.

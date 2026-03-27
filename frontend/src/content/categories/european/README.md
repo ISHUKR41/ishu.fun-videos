@@ -1,0 +1,3 @@
+# european
+
+Category content folder.

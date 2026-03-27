@@ -1,0 +1,3 @@
+# russian
+
+Category content folder.

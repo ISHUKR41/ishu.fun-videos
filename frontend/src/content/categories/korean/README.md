@@ -1,0 +1,3 @@
+# korean
+
+Category content folder.

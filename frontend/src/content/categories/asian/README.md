@@ -1,0 +1,3 @@
+# asian
+
+Category content folder.

@@ -1,0 +1,60 @@
+export type CategorySeed = {
+  code: string;
+  name: string;
+  slug: string;
+  group: string;
+  description: string;
+};
+
+export const categorySeedData: CategorySeed[] = [
+  { code: "cat-001", name: "User Generated", slug: "user-generated", group: "Content Type", description: "Community-submitted and audience-led stories." },
+  { code: "cat-002", name: "Home Videos", slug: "home-videos", group: "Content Type", description: "Real-life personal moments captured at home." },
+  { code: "cat-003", name: "Studio Content", slug: "studio-content", group: "Content Type", description: "Professionally produced studio-quality uploads." },
+  { code: "cat-004", name: "Verified Creators", slug: "verified-creators", group: "Content Type", description: "Published by trusted and verified creators." },
+  { code: "cat-005", name: "First Person View", slug: "first-person-view", group: "Content Type", description: "POV storytelling for immersive experiences." },
+  { code: "cat-006", name: "Live Streams", slug: "live-streams", group: "Content Type", description: "Live sessions and real-time broadcasts." },
+  { code: "cat-007", name: "Real Life Clips", slug: "real-life-clips", group: "Content Type", description: "Authentic and unscripted real-life captures." },
+  { code: "cat-008", name: "Compilations", slug: "compilations", group: "Content Type", description: "Top moments, mashups, and curated recaps." },
+  { code: "cat-009", name: "Story Content", slug: "story-content", group: "Content Type", description: "Narrative-driven short and long-form content." },
+  { code: "cat-010", name: "Behind the Scenes", slug: "behind-the-scenes", group: "Content Type", description: "Inside looks into production and creators." },
+  { code: "cat-011", name: "HD / 4K", slug: "hd-4k", group: "Quality / Format", description: "High-definition and ultra-HD visual quality." },
+  { code: "cat-012", name: "High Frame Rate", slug: "high-frame-rate", group: "Quality / Format", description: "Smooth high-FPS videos and motion clarity." },
+  { code: "cat-013", name: "VR Experience", slug: "vr-experience", group: "Quality / Format", description: "Virtual reality-ready immersive video content." },
+  { code: "cat-014", name: "Interactive Media", slug: "interactive-media", group: "Quality / Format", description: "Interactive and participation-driven media." },
+  { code: "cat-015", name: "Indian", slug: "indian", group: "Region", description: "Regional and nationwide content from India." },
+  { code: "cat-016", name: "American", slug: "american", group: "Region", description: "Trending videos and creators from the US." },
+  { code: "cat-017", name: "Russian", slug: "russian", group: "Region", description: "Regional and creator uploads from Russia." },
+  { code: "cat-018", name: "Japanese", slug: "japanese", group: "Region", description: "Japan-focused creator and lifestyle uploads." },
+  { code: "cat-019", name: "Korean", slug: "korean", group: "Region", description: "Korea-centered videos and creator stories." },
+  { code: "cat-020", name: "European", slug: "european", group: "Region", description: "Across-Europe creator and studio content." },
+  { code: "cat-021", name: "Latin", slug: "latin", group: "Region", description: "Latin region creators and diverse storytelling." },
+  { code: "cat-022", name: "African", slug: "african", group: "Region", description: "African creators and cultural highlights." },
+  { code: "cat-023", name: "Middle Eastern", slug: "middle-eastern", group: "Region", description: "Middle East focused creator uploads." },
+  { code: "cat-024", name: "Asian", slug: "asian", group: "Region", description: "Pan-Asian creator, lifestyle, and trend content." },
+  { code: "cat-025", name: "Individual Creators", slug: "individual-creators", group: "Creators / Participation", description: "Single-creator channels and personal styles." },
+  { code: "cat-026", name: "Duo Creators", slug: "duo-creators", group: "Creators / Participation", description: "Partner-driven channels and duo stories." },
+  { code: "cat-027", name: "Group Creators", slug: "group-creators", group: "Creators / Participation", description: "Teams and collective creator ecosystems." },
+  { code: "cat-028", name: "Community Content", slug: "community-content", group: "Creators / Participation", description: "Audience-participation and community-led uploads." },
+  { code: "cat-029", name: "Role Based Stories", slug: "role-based-stories", group: "Themes", description: "Character-driven and role-based storytelling." },
+  { code: "cat-030", name: "Costume Content", slug: "costume-content", group: "Themes", description: "Costume-centered performances and themed clips." },
+  { code: "cat-031", name: "Campus Life", slug: "campus-life", group: "Themes", description: "College and campus day-to-day moments." },
+  { code: "cat-032", name: "Lifestyle Content", slug: "lifestyle-content", group: "Themes", description: "Daily routines, trends, and lifestyle stories." },
+  { code: "cat-033", name: "Romantic Stories", slug: "romantic-stories", group: "Themes", description: "Story-driven emotional and romantic arcs." },
+  { code: "cat-034", name: "Outdoor Scenes", slug: "outdoor-scenes", group: "Themes", description: "Travel, nature, and outdoor exploration." },
+  { code: "cat-035", name: "Party Clips", slug: "party-clips", group: "Themes", description: "Celebration and event highlights." },
+  { code: "cat-036", name: "Featured Personalities", slug: "featured-personalities", group: "Style / Appearance", description: "Spotlights on unique creator personalities." },
+  { code: "cat-037", name: "Slim Style", slug: "slim-style", group: "Style / Appearance", description: "Style-focused category for slim fashion aesthetics." },
+  { code: "cat-038", name: "Plus Size Style", slug: "plus-size-style", group: "Style / Appearance", description: "Inclusive fashion and confidence-focused style content." },
+  { code: "cat-039", name: "Fitness Style", slug: "fitness-style", group: "Style / Appearance", description: "Fitness-forward lifestyle and training aesthetics." },
+  { code: "cat-040", name: "Hair Styles", slug: "hair-styles", group: "Style / Appearance", description: "Hair trends, tutorials, and transformation content." },
+  { code: "cat-041", name: "Tattoo & Art", slug: "tattoo-art", group: "Style / Appearance", description: "Tattoo culture and creative art showcases." },
+  { code: "cat-042", name: "Conversations", slug: "conversations", group: "Activity / Engagement", description: "Talk-based formats and discussion clips." },
+  { code: "cat-043", name: "Social Interaction", slug: "social-interaction", group: "Activity / Engagement", description: "Interactive social moments and shared experiences." },
+  { code: "cat-044", name: "Solo Performance", slug: "solo-performance", group: "Activity / Engagement", description: "Single-performer spotlight videos." },
+  { code: "cat-045", name: "Emotional Moments", slug: "emotional-moments", group: "Activity / Engagement", description: "Emotion-rich scenes and heartfelt clips." },
+  { code: "cat-046", name: "Highlights", slug: "highlights", group: "Activity / Engagement", description: "Best cut highlights and standout moments." },
+  { code: "cat-047", name: "Trending Moments", slug: "trending-moments", group: "Activity / Engagement", description: "Most talked-about and fast-rising clips." },
+  { code: "cat-048", name: "Creative Content", slug: "creative-content", group: "Activity / Engagement", description: "Imaginative, artistic, and original works." },
+  { code: "cat-049", name: "Special Interests", slug: "special-interests", group: "Activity / Engagement", description: "Niche communities and focused interests." },
+  { code: "cat-050", name: "Miscellaneous", slug: "miscellaneous", group: "Activity / Engagement", description: "Everything else under one flexible category." }
+];

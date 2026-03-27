@@ -1,0 +1,3 @@
+# highlights
+
+Category content folder.

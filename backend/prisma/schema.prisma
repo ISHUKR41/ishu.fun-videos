@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  displayName  String
+  role         String    @default("USER")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  videos       Video[]
+  comments     Comment[]
+}
+
+model Category {
+  id          String                @id @default(cuid())
+  code        String                @unique
+  name        String
+  slug        String                @unique
+  group       String
+  description String
+  isActive    Boolean               @default(true)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  videos      Video[]
+  comments    Comment[]
+  slugHistory CategorySlugHistory[]
+}
+
+model CategorySlugHistory {
+  id         String   @id @default(cuid())
+  categoryId String
+  oldSlug    String   @unique
+  newSlug    String
+  createdAt  DateTime @default(now())
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Video {
+  id           String      @id @default(cuid())
+  title        String
+  description  String
+  categoryId   String
+  uploaderId   String
+  storageKey   String
+  thumbnailUrl String?
+  durationSec  Int?
+  status       String      @default("UPLOADING")
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  category     Category    @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  uploader     User        @relation(fields: [uploaderId], references: [id], onDelete: Restrict)
+}
+
+model Comment {
+  id         String        @id @default(cuid())
+  categoryId String
+  authorId   String
+  content    String
+  status     String        @default("PENDING")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  category   Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  author     User          @relation(fields: [authorId], references: [id], onDelete: Restrict)
+}
