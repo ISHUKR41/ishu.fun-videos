@@ -1,5 +1,7 @@
 {
+  "code": "cat-044",
   "slug": "solo-performance",
   "name": "Solo Performance",
-  "group": "Activity / Engagement"
+  "group": "Activity / Engagement",
+  "description": "Single-performer spotlight videos."
 }

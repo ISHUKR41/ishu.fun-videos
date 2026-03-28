@@ -1,5 +1,7 @@
 {
+  "code": "cat-012",
   "slug": "high-frame-rate",
   "name": "High Frame Rate",
-  "group": "Quality / Format"
+  "group": "Quality / Format",
+  "description": "Smooth high-FPS videos and motion clarity."
 }

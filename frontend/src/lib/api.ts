@@ -1,6 +1,30 @@
 import { Category, CategoryGroup, categoryGroups, categorySeed, findCategoryBySlug, getCategoryCode } from "@/lib/categories";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api";
+type NextRequestInit = RequestInit & {
+  next?: {
+    revalidate?: number;
+  };
+};
+
+const localApiBase = "http://localhost:4000/api";
+const productionApiBase = "https://api.prostream.app/api";
+const requestTimeoutMs = 5000;
+const maxConsecutiveFailures = 3;
+const failureCooldownMs = 30000;
+
+function normalizeApiBase(url: string): string {
+  return url.replace(/\/+$/, "");
+}
+
+const configuredApiBase = (process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || "").trim();
+const runningOnVercel = process.env.VERCEL === "1" || process.env.VERCEL === "true";
+const pointsToLocalhost = /localhost|127\.0\.0\.1/i.test(configuredApiBase);
+const effectiveConfiguredApiBase = runningOnVercel && pointsToLocalhost ? productionApiBase : configuredApiBase;
+const defaultApiBase = process.env.NODE_ENV === "production" ? productionApiBase : localApiBase;
+const apiBase = normalizeApiBase(effectiveConfiguredApiBase || defaultApiBase);
+
+let consecutiveFailures = 0;
+let circuitOpenUntil = 0;
 
 type ApiCategory = {
   id: string;
@@ -89,31 +113,73 @@ function toCategory(record: ApiCategory): Category {
   };
 }
 
-async function safeJson<T>(response: Response): Promise<T | null> {
+function isCircuitOpen() {
+  return Date.now() < circuitOpenUntil;
+}
+
+function registerFailure() {
+  consecutiveFailures += 1;
+
+  if (consecutiveFailures >= maxConsecutiveFailures) {
+    circuitOpenUntil = Date.now() + failureCooldownMs;
+  }
+}
+
+function registerSuccess() {
+  consecutiveFailures = 0;
+  circuitOpenUntil = 0;
+}
+
+async function parseJson<T>(response: Response): Promise<T | null> {
   if (!response.ok) {
+    if (response.status >= 500) {
+      registerFailure();
+    }
+
     return null;
   }
 
   try {
-    return (await response.json()) as T;
+    const data = (await response.json()) as T;
+    registerSuccess();
+    return data;
   } catch {
+    registerFailure();
     return null;
   }
 }
 
-export async function fetchCategories(): Promise<Category[]> {
-  try {
-    const response = await fetch(`${apiBase}/categories`, {
-      next: { revalidate: 120 }
-    });
-    const payload = await safeJson<{ categories: ApiCategory[] }>(response);
-
-    return payload?.categories?.length
-      ? payload.categories.map((record) => toCategory(record))
-      : categorySeed;
-  } catch {
-    return categorySeed;
+async function fetchApi<T>(path: string, init: NextRequestInit = {}): Promise<T | null> {
+  if (isCircuitOpen()) {
+    return null;
   }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), requestTimeoutMs);
+
+  try {
+    const response = await fetch(`${apiBase}${path}`, {
+      ...init,
+      signal: controller.signal
+    });
+
+    return parseJson<T>(response);
+  } catch {
+    registerFailure();
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export async function fetchCategories(): Promise<Category[]> {
+  const payload = await fetchApi<{ categories: ApiCategory[] }>("/categories", {
+    next: { revalidate: 120 }
+  });
+
+  return payload?.categories?.length
+    ? payload.categories.map((record) => toCategory(record))
+    : categorySeed;
 }
 
 export type CategoryLookupResult = {
@@ -123,25 +189,20 @@ export type CategoryLookupResult = {
 };
 
 export async function fetchCategoryLookup(slug: string): Promise<CategoryLookupResult> {
-  try {
-    const response = await fetch(`${apiBase}/categories/${slug}`, {
-      next: { revalidate: 120 }
-    });
-    const payload = await safeJson<{
-      category?: ApiCategory | null;
-      redirectTo?: string;
-      redirectedFrom?: string;
-    }>(response);
+  const payload = await fetchApi<{
+    category?: ApiCategory | null;
+    redirectTo?: string;
+    redirectedFrom?: string;
+  }>(`/categories/${slug}`, {
+    next: { revalidate: 120 }
+  });
 
-    if (payload?.category) {
-      return {
-        category: toCategory(payload.category),
-        redirectTo: payload.redirectTo,
-        redirectedFrom: payload.redirectedFrom
-      };
-    }
-  } catch {
-    // Fall through to seed fallback.
+  if (payload?.category) {
+    return {
+      category: toCategory(payload.category),
+      redirectTo: payload.redirectTo,
+      redirectedFrom: payload.redirectedFrom
+    };
   }
 
   const fallback = categorySeed.find((category) => category.slug === slug) || null;
@@ -199,78 +260,58 @@ function toVideoRecord(video: ApiVideo): VideoRecord {
 }
 
 export async function fetchCategoryComments(slug: string): Promise<CommentRecord[]> {
-  try {
-    const response = await fetch(`${apiBase}/categories/${slug}/comments`, {
-      cache: "no-store"
-    });
-    const payload = await safeJson<{ comments: CommentRecord[] }>(response);
+  const payload = await fetchApi<{ comments: CommentRecord[] }>(`/categories/${slug}/comments`, {
+    cache: "no-store"
+  });
 
-    return payload?.comments || [];
-  } catch {
-    return [];
-  }
+  return payload?.comments || [];
 }
 
 export async function fetchCategoryOverview(slug: string): Promise<CategoryOverview | null> {
-  try {
-    const response = await fetch(`${apiBase}/categories/${slug}/overview`, {
-      next: { revalidate: 90 }
-    });
-    const payload = await safeJson<{
-      stats?: { videos?: number; comments?: number };
-      latestVideos?: ApiVideo[];
-    }>(response);
+  const payload = await fetchApi<{
+    stats?: { videos?: number; comments?: number };
+    latestVideos?: ApiVideo[];
+  }>(`/categories/${slug}/overview`, {
+    next: { revalidate: 90 }
+  });
 
-    if (!payload) {
-      return null;
-    }
-
-    return {
-      stats: {
-        videos: Number(payload.stats?.videos || 0),
-        comments: Number(payload.stats?.comments || 0)
-      },
-      latestVideos: Array.isArray(payload.latestVideos)
-        ? payload.latestVideos.map((video) => toVideoRecord(video))
-        : []
-    };
-  } catch {
+  if (!payload) {
     return null;
   }
+
+  return {
+    stats: {
+      videos: Number(payload.stats?.videos || 0),
+      comments: Number(payload.stats?.comments || 0)
+    },
+    latestVideos: Array.isArray(payload.latestVideos)
+      ? payload.latestVideos.map((video) => toVideoRecord(video))
+      : []
+  };
 }
 
 export async function fetchVideos(categorySlug?: string): Promise<VideoRecord[]> {
   const query = categorySlug ? `?category=${encodeURIComponent(categorySlug)}` : "";
 
-  try {
-    const response = await fetch(`${apiBase}/videos${query}`, {
-      next: { revalidate: 90 }
-    });
-    const payload = await safeJson<{ videos?: ApiVideo[] }>(response);
+  const payload = await fetchApi<{ videos?: ApiVideo[] }>(`/videos${query}`, {
+    next: { revalidate: 90 }
+  });
 
-    if (!payload?.videos) {
-      return [];
-    }
-
-    return payload.videos.map((video) => toVideoRecord(video));
-  } catch {
+  if (!payload?.videos) {
     return [];
   }
+
+  return payload.videos.map((video) => toVideoRecord(video));
 }
 
 export async function fetchVideoById(videoId: string): Promise<VideoRecord | null> {
-  try {
-    const response = await fetch(`${apiBase}/videos/${videoId}`, {
-      next: { revalidate: 90 }
-    });
-    const payload = await safeJson<{ video?: ApiVideo }>(response);
+  const payload = await fetchApi<{ video?: ApiVideo }>(`/videos/${videoId}`, {
+    next: { revalidate: 90 }
+  });
 
-    if (!payload?.video) {
-      return null;
-    }
-
-    return toVideoRecord(payload.video);
-  } catch {
+  if (!payload?.video) {
     return null;
   }
+
+  return toVideoRecord(payload.video);
 }

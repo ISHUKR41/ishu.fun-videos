@@ -1,5 +1,7 @@
 {
+  "code": "cat-029",
   "slug": "role-based-stories",
   "name": "Role Based Stories",
-  "group": "Themes"
+  "group": "Themes",
+  "description": "Character-driven and role-based storytelling."
 }

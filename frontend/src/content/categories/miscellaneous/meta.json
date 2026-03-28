@@ -1,5 +1,7 @@
 {
+  "code": "cat-050",
   "slug": "miscellaneous",
   "name": "Miscellaneous",
-  "group": "Activity / Engagement"
+  "group": "Activity / Engagement",
+  "description": "Everything else under one flexible category."
 }

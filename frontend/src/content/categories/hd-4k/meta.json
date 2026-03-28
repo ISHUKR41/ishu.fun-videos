@@ -1,5 +1,7 @@
 {
+  "code": "cat-011",
   "slug": "hd-4k",
   "name": "HD / 4K",
-  "group": "Quality / Format"
+  "group": "Quality / Format",
+  "description": "High-definition and ultra-HD visual quality."
 }

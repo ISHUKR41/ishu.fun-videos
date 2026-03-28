@@ -1,5 +1,7 @@
 {
+  "code": "cat-004",
   "slug": "verified-creators",
   "name": "Verified Creators",
-  "group": "Content Type"
+  "group": "Content Type",
+  "description": "Published by trusted and verified creators."
 }

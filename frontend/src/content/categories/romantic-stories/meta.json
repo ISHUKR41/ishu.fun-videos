@@ -1,5 +1,7 @@
 {
+  "code": "cat-033",
   "slug": "romantic-stories",
   "name": "Romantic Stories",
-  "group": "Themes"
+  "group": "Themes",
+  "description": "Story-driven emotional and romantic arcs."
 }

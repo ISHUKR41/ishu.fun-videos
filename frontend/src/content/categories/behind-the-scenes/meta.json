@@ -1,5 +1,7 @@
 {
+  "code": "cat-010",
   "slug": "behind-the-scenes",
   "name": "Behind the Scenes",
-  "group": "Content Type"
+  "group": "Content Type",
+  "description": "Inside looks into production and creators."
 }

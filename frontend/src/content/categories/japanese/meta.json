@@ -1,5 +1,7 @@
 {
+  "code": "cat-018",
   "slug": "japanese",
   "name": "Japanese",
-  "group": "Region"
+  "group": "Region",
+  "description": "Japan-focused creator and lifestyle uploads."
 }

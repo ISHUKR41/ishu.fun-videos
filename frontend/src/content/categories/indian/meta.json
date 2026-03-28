@@ -1,5 +1,7 @@
 {
+  "code": "cat-015",
   "slug": "indian",
   "name": "Indian",
-  "group": "Region"
+  "group": "Region",
+  "description": "Regional and nationwide content from India."
 }

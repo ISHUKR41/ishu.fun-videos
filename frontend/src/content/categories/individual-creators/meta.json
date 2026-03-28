@@ -1,5 +1,7 @@
 {
+  "code": "cat-025",
   "slug": "individual-creators",
   "name": "Individual Creators",
-  "group": "Creators / Participation"
+  "group": "Creators / Participation",
+  "description": "Single-creator channels and personal styles."
 }

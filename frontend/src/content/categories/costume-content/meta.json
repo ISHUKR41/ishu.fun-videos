@@ -1,5 +1,7 @@
 {
+  "code": "cat-030",
   "slug": "costume-content",
   "name": "Costume Content",
-  "group": "Themes"
+  "group": "Themes",
+  "description": "Costume-centered performances and themed clips."
 }

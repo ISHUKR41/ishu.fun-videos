@@ -1,5 +1,7 @@
 {
+  "code": "cat-007",
   "slug": "real-life-clips",
   "name": "Real Life Clips",
-  "group": "Content Type"
+  "group": "Content Type",
+  "description": "Authentic and unscripted real-life captures."
 }

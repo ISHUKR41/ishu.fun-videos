@@ -189,14 +189,14 @@ adminRouter.post("/seo/suggest", async (req, res) => {
   );
 
   const titleSuggestions = [
-    `${cleanTitle} | ${category} on ProStream`,
-    `${category}: ${cleanTitle} | Watch on ProStream`,
+    `${cleanTitle} | ${category} on ISHU.FUN`,
+    `${category}: ${cleanTitle} | Watch on ISHU.FUN`,
     `${cleanTitle} - Premium ${category} Video`,
     `${cleanTitle} (${category}) - Smooth HD Streaming`
   ];
 
   const compactDescription = description.length > 145 ? `${description.slice(0, 142)}...` : description;
-  const descriptionSuggestion = `${compactDescription} Watch now on ProStream for smooth playback, pro-grade quality, and category-smart discovery with moderated engagement.`;
+  const descriptionSuggestion = `${compactDescription} Watch now on ISHU.FUN for smooth playback, pro-grade quality, and category-smart discovery with moderated engagement.`;
 
   const slugSuggestion = slugify(`${cleanTitle} ${category}`).slice(0, 80);
   const hashtagSuggestions = baseKeywords

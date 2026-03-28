@@ -1,5 +1,7 @@
 {
+  "code": "cat-013",
   "slug": "vr-experience",
   "name": "VR Experience",
-  "group": "Quality / Format"
+  "group": "Quality / Format",
+  "description": "Virtual reality-ready immersive video content."
 }

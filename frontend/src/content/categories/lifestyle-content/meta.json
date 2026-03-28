@@ -1,5 +1,7 @@
 {
+  "code": "cat-032",
   "slug": "lifestyle-content",
   "name": "Lifestyle Content",
-  "group": "Themes"
+  "group": "Themes",
+  "description": "Daily routines, trends, and lifestyle stories."
 }

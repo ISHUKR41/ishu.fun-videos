@@ -1,5 +1,7 @@
 {
+  "code": "cat-014",
   "slug": "interactive-media",
   "name": "Interactive Media",
-  "group": "Quality / Format"
+  "group": "Quality / Format",
+  "description": "Interactive and participation-driven media."
 }

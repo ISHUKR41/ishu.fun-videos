@@ -45,12 +45,24 @@ export function keywordsForCategory(category: Category): string[] {
     `${siteConfig.name.toLowerCase()} ${category.group.toLowerCase()} category`,
     `ishu ${plainSlug} videos`,
     `ishu.fun ${category.name.toLowerCase()}`,
+    `${category.name.toLowerCase()} seo optimized page`,
+    `${category.name.toLowerCase()} discovery page`,
+    `${plainSlug} hd streaming`,
+    `${plainSlug} smooth playback`,
+    `${plainSlug} admin curated uploads`,
+    `${plainSlug} modern video platform`,
+    `${plainSlug} trending clips`,
+    `ishufun ${plainSlug} category`,
+    `ishu fun ${plainSlug}`,
+    `${category.name.toLowerCase()} long tail seo`,
     "video platform",
     "streaming website",
     "admin curated videos",
     "seo optimized category page",
     "high quality streaming",
-    "fast loading video website"
+    "fast loading video website",
+    "seo ai optimization",
+    "schema markup category page"
   ];
 
   return dedupeKeywords([...(category.seoKeywords || []), ...brandTerms, ...longTail]).slice(0, 30);

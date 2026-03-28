@@ -1,5 +1,7 @@
 {
+  "code": "cat-017",
   "slug": "russian",
   "name": "Russian",
-  "group": "Region"
+  "group": "Region",
+  "description": "Regional and creator uploads from Russia."
 }

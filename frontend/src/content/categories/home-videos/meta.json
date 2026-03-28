@@ -1,5 +1,7 @@
 {
+  "code": "cat-002",
   "slug": "home-videos",
   "name": "Home Videos",
-  "group": "Content Type"
+  "group": "Content Type",
+  "description": "Real-life personal moments captured at home."
 }

@@ -1,5 +1,7 @@
 {
+  "code": "cat-031",
   "slug": "campus-life",
   "name": "Campus Life",
-  "group": "Themes"
+  "group": "Themes",
+  "description": "College and campus day-to-day moments."
 }

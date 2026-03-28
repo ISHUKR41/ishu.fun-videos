@@ -1,5 +1,7 @@
 {
+  "code": "cat-023",
   "slug": "middle-eastern",
   "name": "Middle Eastern",
-  "group": "Region"
+  "group": "Region",
+  "description": "Middle East focused creator uploads."
 }

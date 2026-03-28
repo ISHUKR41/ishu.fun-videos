@@ -1,5 +1,7 @@
 {
+  "code": "cat-028",
   "slug": "community-content",
   "name": "Community Content",
-  "group": "Creators / Participation"
+  "group": "Creators / Participation",
+  "description": "Audience-participation and community-led uploads."
 }

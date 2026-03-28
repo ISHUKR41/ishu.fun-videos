@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MdArrowForward,
   MdPublic,
@@ -16,6 +17,8 @@ import {
 } from "react-icons/md";
 import { CategoryGrid } from "@/components/category-grid";
 import { ExternalThumbnail } from "@/components/external-thumbnail";
+import { ParticleCanvas } from "@/components/particle-canvas";
+import { MarqueeStrip } from "@/components/marquee-strip";
 import { fetchCategories, fetchVideos } from "@/lib/api";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
@@ -60,7 +63,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${siteConfig.url}/og-image.jpg`,
+        url: `${siteConfig.url}${siteConfig.defaultOgImage}`,
         width: 1200,
         height: 630,
         alt: siteConfig.name
@@ -70,7 +73,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
-    description: siteConfig.description
+    description: siteConfig.description,
+    images: [`${siteConfig.url}${siteConfig.defaultOgImage}`]
   }
 };
 
@@ -79,6 +83,30 @@ export default async function HomePage() {
   const videos = await fetchVideos();
   const topCategories = categories.slice(0, 6);
   const featuredVideos = videos.slice(0, 8);
+  const categoryNameBySlug = new Map(categories.map((category) => [category.slug, category.name]));
+  const visualShowcase = [
+    {
+      image: "/images/showcase/creator-studio.svg",
+      slug: "studio-content",
+      alt: "Studio production themed showcase",
+      eyebrow: "Studio Motion",
+      summary: "Clean production pipeline with premium visual direction and cinematic framing."
+    },
+    {
+      image: "/images/showcase/global-stream.svg",
+      slug: "live-streams",
+      alt: "Live streaming themed showcase",
+      eyebrow: "Live Discovery",
+      summary: "Real-time discovery rails with modern interaction layers and global audience reach."
+    },
+    {
+      image: "/images/showcase/community-grid.svg",
+      slug: "community-content",
+      alt: "Community content themed showcase",
+      eyebrow: "Community Graph",
+      summary: "Category-based content clusters for comments, engagement, and long-tail SEO capture."
+    }
+  ] as const;
 
   const platformSchema = {
     "@context": "https://schema.org",
@@ -154,6 +182,7 @@ export default async function HomePage() {
         </div>
 
         <div className="hero-visual reveal-scale" aria-hidden>
+          <ParticleCanvas />
           <div className="orb one" />
           <div className="orb two" />
           <div className="hero-stack">
@@ -183,35 +212,19 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="container trust-strip reveal-up" aria-label="Brand inspired quality">
-        <p>Design language inspired by premium product ecosystems</p>
-        <div>
-          <span>Apple</span>
-          <span>Google</span>
-          <span>Microsoft</span>
-          <span>Vercel</span>
-          <span>Stripe</span>
-          <span>Figma</span>
-          <span>Notion</span>
-          <span>Tesla</span>
-          <span>Airbnb</span>
-          <span>Nike</span>
-          <span>Dropbox</span>
-          <span>GitHub</span>
-        </div>
-      </section>
+      <MarqueeStrip />
 
-      <section className="container highlights reveal-up" aria-label="Platform highlights">
-        <article>
-          <h3>50</h3>
+      <section className="container highlights-enhanced reveal-up" aria-label="Platform highlights">
+        <article className="highlight-card">
+          <div className="highlight-number">50<span>+</span></div>
           <p>Dedicated category folders with pages and comments</p>
         </article>
-        <article>
-          <h3>Admin-Only</h3>
+        <article className="highlight-card">
+          <div className="highlight-number">Admin</div>
           <p>Strict upload controls and hidden control room</p>
         </article>
-        <article>
-          <h3>SEO + AI</h3>
+        <article className="highlight-card">
+          <div className="highlight-number">SEO</div>
           <p>Schema, sitemap, metadata, and SEO assistant tools</p>
         </article>
       </section>
@@ -267,6 +280,40 @@ export default async function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      <section className="container visual-showcase reveal-scale" aria-label="Visual category showcase">
+        <div className="section-heading-inline">
+          <div>
+            <p className="eyebrow">Visual Direction</p>
+            <h2>Modern product-grade visuals with depth</h2>
+          </div>
+        </div>
+
+        <div className="visual-showcase-grid">
+          {visualShowcase.map((panel) => {
+            const categoryName = categoryNameBySlug.get(panel.slug) || panel.slug.replace(/-/g, " ");
+
+            return (
+              <Link key={panel.slug} href={`/categories/${panel.slug}`} className="visual-showcase-card">
+                <div className="visual-showcase-media" aria-hidden>
+                  <Image
+                    src={panel.image}
+                    alt={panel.alt}
+                    width={760}
+                    height={460}
+                    className="visual-showcase-image"
+                  />
+                </div>
+                <div className="visual-showcase-body">
+                  <p>{panel.eyebrow}</p>
+                  <h3>{categoryName}</h3>
+                  <span>{panel.summary}</span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </section>
 
       <section className="container feature-grid reveal-up" aria-label="Platform capabilities">

@@ -79,8 +79,14 @@ function buildSeoKeywords(name: string, slug: string, group: CategoryGroup): str
     `ishu ${plainSlug}`,
     `ishu.fun ${plainSlug} videos`,
     `ishufun ${name.toLowerCase()} category`,
+    `${plainSlug} seo optimized page`,
+    `${plainSlug} modern streaming website`,
+    `${plainSlug} high quality videos`,
+    `${plainSlug} comment enabled category`,
+    `${plainSlug} admin curated content`,
     "admin curated video platform",
-    "professional streaming website"
+    "professional streaming website",
+    "seo ai optimization"
   ];
 
   return dedupeKeywords([...(keywordBoosters[slug] || []), ...keywords]);

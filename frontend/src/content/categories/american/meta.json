@@ -1,5 +1,7 @@
 {
+  "code": "cat-016",
   "slug": "american",
   "name": "American",
-  "group": "Region"
+  "group": "Region",
+  "description": "Trending videos and creators from the US."
 }

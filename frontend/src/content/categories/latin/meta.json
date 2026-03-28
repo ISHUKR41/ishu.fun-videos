@@ -1,5 +1,7 @@
 {
+  "code": "cat-021",
   "slug": "latin",
   "name": "Latin",
-  "group": "Region"
+  "group": "Region",
+  "description": "Latin region creators and diverse storytelling."
 }

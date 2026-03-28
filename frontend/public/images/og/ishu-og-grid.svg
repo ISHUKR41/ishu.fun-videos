@@ -1,0 +1,29 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#03040A"/>
+      <stop offset="0.5" stop-color="#0D1530"/>
+      <stop offset="1" stop-color="#1B2F57"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="180" cy="132" r="220" fill="#60A5FA" fill-opacity="0.2"/>
+  <circle cx="1030" cy="530" r="260" fill="#A78BFA" fill-opacity="0.18"/>
+
+  <rect x="80" y="80" width="1040" height="470" rx="38" fill="#090E20" stroke="#2C4685" stroke-width="2"/>
+  <rect x="140" y="148" width="530" height="76" rx="18" fill="#111B3A" stroke="#365DA5"/>
+  <text x="180" y="196" fill="#E9F6FF" font-family="Segoe UI, Arial" font-size="44" font-weight="800">ISHU.FUN</text>
+
+  <text x="140" y="282" fill="#BBD8FF" font-family="Segoe UI, Arial" font-size="32" font-weight="600">Admin-curated streaming platform</text>
+  <text x="140" y="332" fill="#8DB3E9" font-family="Segoe UI, Arial" font-size="26">50 category hubs | SEO-first architecture | Smooth UX</text>
+
+  <rect x="140" y="380" width="260" height="56" rx="28" fill="#1E3A77"/>
+  <text x="270" y="416" text-anchor="middle" fill="#E6F3FF" font-family="Segoe UI, Arial" font-size="22" font-weight="700">ISHU Keywords Ready</text>
+
+  <rect x="760" y="170" width="290" height="290" rx="26" fill="#0B1530" stroke="#3A63AF"/>
+  <rect x="790" y="206" width="230" height="16" rx="8" fill="#E0F2FF" fill-opacity="0.85"/>
+  <rect x="790" y="236" width="170" height="12" rx="6" fill="#94BDF8" fill-opacity="0.8"/>
+  <rect x="790" y="278" width="230" height="138" rx="18" fill="#101E42" stroke="#446FC1"/>
+  <polygon points="888,314 888,380 944,347" fill="#C8E8FF"/>
+</svg>

@@ -1,9 +1,28 @@
 import Link from "next/link";
 import { MdPlayCircle, MdShield, MdSpeed, MdAutoAwesome } from "react-icons/md";
+import { fetchCategories } from "@/lib/api";
+import { categorySeed } from "@/lib/categories";
 import { siteConfig } from "@/lib/site";
 
-export function SiteFooter() {
+const featuredCategorySlugs = ["user-generated", "hd-4k", "indian", "live-streams", "studio-content", "vr-experience"];
+const discoveryCategorySlugs = [
+  "verified-creators",
+  "creative-content",
+  "lifestyle-content",
+  "campus-life",
+  "outdoor-scenes",
+  "emotional-moments"
+];
+
+function resolveCategoryName(slug: string, categoryNameBySlug: Map<string, string>) {
+  return categoryNameBySlug.get(slug) || slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+export async function SiteFooter() {
   const year = new Date().getFullYear();
+  const categories = await fetchCategories();
+  const categorySource = categories.length > 0 ? categories : categorySeed;
+  const categoryNameBySlug = new Map(categorySource.map((category) => [category.slug, category.name]));
 
   return (
     <footer className="site-footer">
@@ -46,24 +65,22 @@ export function SiteFooter() {
           <div className="footer-col">
             <h4>Categories</h4>
             <ul className="footer-links">
-              <li><Link href="/categories/user-generated">User Generated</Link></li>
-              <li><Link href="/categories/hd-4k">HD / 4K</Link></li>
-              <li><Link href="/categories/indian">Indian</Link></li>
-              <li><Link href="/categories/live-streams">Live Streams</Link></li>
-              <li><Link href="/categories/studio-content">Studio Content</Link></li>
-              <li><Link href="/categories/vr-experience">VR Experience</Link></li>
+              {featuredCategorySlugs.map((slug) => (
+                <li key={slug}>
+                  <Link href={`/categories/${slug}`}>{resolveCategoryName(slug, categoryNameBySlug)}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="footer-col">
             <h4>Discover</h4>
             <ul className="footer-links">
-              <li><Link href="/categories/verified-creators">Verified Creators</Link></li>
-              <li><Link href="/categories/creative-content">Creative Content</Link></li>
-              <li><Link href="/categories/lifestyle-content">Lifestyle</Link></li>
-              <li><Link href="/categories/campus-life">Campus Life</Link></li>
-              <li><Link href="/categories/outdoor-scenes">Outdoor Scenes</Link></li>
-              <li><Link href="/categories/emotional-moments">Emotional Moments</Link></li>
+              {discoveryCategorySlugs.map((slug) => (
+                <li key={slug}>
+                  <Link href={`/categories/${slug}`}>{resolveCategoryName(slug, categoryNameBySlug)}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
