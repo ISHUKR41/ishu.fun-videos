@@ -45,6 +45,14 @@ export function keywordsForCategory(category: Category): string[] {
     `${siteConfig.name.toLowerCase()} ${category.group.toLowerCase()} category`,
     `ishu ${plainSlug} videos`,
     `ishu.fun ${category.name.toLowerCase()}`,
+    `ishu ${category.name.toLowerCase()} streaming`,
+    `ishu ${plainSlug} watch online`,
+    `ishu.fun ${plainSlug} category`,
+    `ishu fun ${category.name.toLowerCase()} videos`,
+    `ishufun ${plainSlug} streaming`,
+    `ishu reels ${plainSlug}`,
+    `ishu clips ${plainSlug}`,
+    `ishu video app ${category.name.toLowerCase()}`,
     `${category.name.toLowerCase()} seo optimized page`,
     `${category.name.toLowerCase()} discovery page`,
     `${plainSlug} hd streaming`,
@@ -55,6 +63,14 @@ export function keywordsForCategory(category: Category): string[] {
     `ishufun ${plainSlug} category`,
     `ishu fun ${plainSlug}`,
     `${category.name.toLowerCase()} long tail seo`,
+    `${plainSlug} ishu platform`,
+    `${plainSlug} ishu.fun upload`,
+    `${category.name.toLowerCase()} professional website`,
+    `${plainSlug} modern ui`,
+    `${plainSlug} smooth scrolling`,
+    `${category.name.toLowerCase()} youtube style`,
+    `${plainSlug} premium content`,
+    `${category.name.toLowerCase()} best streaming site`,
     "video platform",
     "streaming website",
     "admin curated videos",
@@ -62,10 +78,15 @@ export function keywordsForCategory(category: Category): string[] {
     "high quality streaming",
     "fast loading video website",
     "seo ai optimization",
-    "schema markup category page"
+    "schema markup category page",
+    "ishu streaming platform",
+    "ishu.fun modern website",
+    "ishu professional video site",
+    "ishu 3d animated website",
+    "ishu smooth scrolling platform"
   ];
 
-  return dedupeKeywords([...(category.seoKeywords || []), ...brandTerms, ...longTail]).slice(0, 30);
+  return dedupeKeywords([...(category.seoKeywords || []), ...brandTerms, ...longTail]).slice(0, 50);
 }
 
 export function faqSchemaForCategory(category: Category) {
