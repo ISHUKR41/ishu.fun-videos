@@ -6,7 +6,6 @@ const nextConfig = {
   compress: true,
   experimental: {
     externalDir: true,
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion'],
   },
   images: {
