@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   publisher: siteConfig.name,
   title: {
     default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "max-video-preview": -1
-    }
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
     title: siteConfig.title,
@@ -41,47 +41,47 @@ export const metadata: Metadata = {
         url: siteConfig.defaultOgImage,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} streaming platform`
-      }
-    ]
+        alt: `${siteConfig.name} streaming platform`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [siteConfig.defaultOgImage]
+    images: [siteConfig.defaultOgImage],
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/favicon.ico"
+    apple: "/favicon.ico",
   },
   appleWebApp: {
     capable: true,
     title: siteConfig.name,
-    statusBarStyle: "black-translucent"
+    statusBarStyle: "black-translucent",
   },
   formatDetection: {
     email: false,
     address: false,
-    telephone: false
+    telephone: false,
   },
   manifest: "/manifest.webmanifest",
   alternates: {
-    canonical: "/"
-  }
+    canonical: "/",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   themeColor: siteConfig.themeColor,
-  colorScheme: "dark"
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -98,8 +98,8 @@ export default function RootLayout({
     potentialAction: {
       "@type": "SearchAction",
       target: `${siteConfig.url}/categories?search={search_term_string}`,
-      "query-input": "required name=search_term_string"
-    }
+      "query-input": "required name=search_term_string",
+    },
   };
 
   const organizationSchema = {
@@ -109,7 +109,7 @@ export default function RootLayout({
     url: siteConfig.url,
     description: siteConfig.description,
     logo: `${siteConfig.url}/favicon.ico`,
-    sameAs: siteConfig.socialProfiles
+    sameAs: siteConfig.socialProfiles,
   };
 
   return (
@@ -117,7 +117,15 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          as="style"
+        />
       </head>
       <body>
         <SmoothScroll>

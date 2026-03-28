@@ -9,7 +9,16 @@ interface Particle {
   vy: number;
   radius: number;
   opacity: number;
+  color: string;
 }
+
+const PARTICLE_COLORS = [
+  'rgba(99, 130, 246, ', // blue
+  'rgba(139, 92, 246, ', // purple
+  'rgba(236, 72, 153, ', // pink
+  'rgba(129, 140, 248, ', // indigo
+  'rgba(167, 139, 250, ', // light purple
+];
 
 export function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,17 +27,21 @@ export function ParticleCanvas() {
   const mouseRef = useRef({ x: -1000, y: -1000 });
 
   const initParticles = useCallback((width: number, height: number) => {
-    const count = Math.min(Math.floor((width * height) / 12000), 120);
+    // Adapt particle count to device capability
+    const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency || 4 : 4;
+    const maxParticles = cores >= 8 ? 120 : cores >= 4 ? 80 : 50;
+    const count = Math.min(Math.floor((width * height) / 14000), maxParticles);
     const particles: Particle[] = [];
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.8 + 0.6,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 2 + 0.5,
         opacity: Math.random() * 0.5 + 0.15,
+        color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
       });
     }
 
@@ -63,7 +76,7 @@ export function ParticleCanvas() {
 
     resize();
 
-    const connectionDistance = 120;
+    const connectionDistance = 130;
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
@@ -81,14 +94,21 @@ export function ParticleCanvas() {
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Mouse repulsion
+        // Mouse repulsion with glow near cursor
         const dxm = p.x - mx;
         const dym = p.y - my;
         const distMouse = Math.sqrt(dxm * dxm + dym * dym);
-        if (distMouse < 100) {
-          const force = (100 - distMouse) / 100;
-          p.vx += (dxm / distMouse) * force * 0.3;
-          p.vy += (dym / distMouse) * force * 0.3;
+        if (distMouse < 120) {
+          const force = (120 - distMouse) / 120;
+          p.vx += (dxm / distMouse) * force * 0.25;
+          p.vy += (dym / distMouse) * force * 0.25;
+
+          // Glow effect near mouse
+          const glowSize = p.radius * (1 + force * 2);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${Math.min(p.opacity + force * 0.3, 0.8)})`;
+          ctx.fill();
         }
 
         // Dampen velocity
@@ -97,10 +117,10 @@ export function ParticleCanvas() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(99, 130, 246, ${p.opacity})`;
+        ctx.fillStyle = `${p.color}${p.opacity})`;
         ctx.fill();
 
-        // Draw connections
+        // Draw connections with color
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -108,11 +128,11 @@ export function ParticleCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDistance) {
-            const lineOpacity = (1 - dist / connectionDistance) * 0.15;
+            const lineOpacity = (1 - dist / connectionDistance) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(99, 130, 246, ${lineOpacity})`;
+            ctx.strokeStyle = `${p.color}${lineOpacity})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }
