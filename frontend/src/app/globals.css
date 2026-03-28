@@ -48,8 +48,8 @@
   --glass-border: rgba(255, 255, 255, 0.1);
 
   /* Editorial + Product font stack */
-  --font-body: var(--font-plus-jakarta), "Plus Jakarta Sans", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
-  --font-heading: var(--font-space-grotesk), "Space Grotesk", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Segoe UI", "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --font-heading: "Space Grotesk", "Segoe UI", "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
 }
 
@@ -1272,6 +1272,30 @@ a {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes float-3d {
+  0%, 100% {
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0);
+  }
+  25% {
+    transform: perspective(1200px) rotateX(2deg) rotateY(-2deg) translateZ(10px);
+  }
+  50% {
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0);
+  }
+  75% {
+    transform: perspective(1200px) rotateX(-2deg) rotateY(2deg) translateZ(10px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3)) drop-shadow(0 0 20px rgba(139, 92, 246, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4));
   }
 }
 
