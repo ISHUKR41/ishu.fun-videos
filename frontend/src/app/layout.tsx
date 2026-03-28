@@ -1,25 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { PageTransition } from "@/components/page-transition";
 import { absoluteUrl, siteConfig } from "@/lib/site";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-plus-jakarta",
-  weight: ["300", "400", "500", "600", "700", "800"]
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"]
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -128,7 +113,12 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
       <body>
         <SmoothScroll>
           <SiteHeader />
